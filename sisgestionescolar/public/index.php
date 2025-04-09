@@ -1,7 +1,10 @@
 <?php
 include(__DIR__ . '/../app/config.php');
-session_start();  
 
+// Solo inicia la sesión si no está activa
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +64,6 @@ session_start();
             </form>
 
             <?php
-            
             if(isset($_SESSION['mensaje'])){
                 $mensaje = $_SESSION['mensaje'];
                 ?>
