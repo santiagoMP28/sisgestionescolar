@@ -2,6 +2,6 @@ services:
   - type: web
     name: sisgestionescolar
     env: php
+    rootDir: sisgestionescolar/public
     buildCommand: ""
     startCommand: ""
-    rootDir: sisgestionescolar/public
