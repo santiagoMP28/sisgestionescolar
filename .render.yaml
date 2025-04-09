@@ -1,8 +1,6 @@
 services:
   - type: web
     name: sisgestionescolar
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
+    env: static
+    staticPublishPath: .
     buildCommand: ""
-    startCommand: ""
