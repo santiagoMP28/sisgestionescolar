@@ -2,6 +2,7 @@
 /**
  * Configuración para PostgreSQL en Render
  */
+session_start();
 
 define('SERVIDOR','dpg-cvqv76euk2gs73c2ugig-a.oregon-postgres.render.com');
 define('USUARIO','sisgestion_escolar_user');
@@ -10,7 +11,7 @@ define('BD','sisgestion_escolar');
 define('PUERTO','5432');
 
 define('APP_NAME','SISTEMA DE GESTIÓN ESCOLAR');
-define('APP_URL','https://TU_DOMINIO.render.com'); // reemplaza si tienes un dominio personalizado
+define('APP_URL','https://sisgestionescolar.onrender.com/'); // reemplaza si tienes un dominio personalizado
 define('KEY_API_MAPS','');
 
 // Conexión PostgreSQL
