@@ -1,5 +1,6 @@
 <?php
-include ('../app/config.php');
+include(__DIR__ . '/../app/config.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
