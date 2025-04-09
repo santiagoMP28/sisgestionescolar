@@ -4,4 +4,4 @@ services:
     env: php
     buildCommand: ""
     startCommand: ""
-    rootDir: public
+    rootDir: sisgestionescolar/public
