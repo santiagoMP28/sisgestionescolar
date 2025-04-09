@@ -1,5 +1,6 @@
 <?php
 include(__DIR__ . '/../app/config.php');
+session_start();  
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +61,7 @@ include(__DIR__ . '/../app/config.php');
             </form>
 
             <?php
-            session_start();
+            
             if(isset($_SESSION['mensaje'])){
                 $mensaje = $_SESSION['mensaje'];
                 ?>
