@@ -1,26 +1,26 @@
 <?php
 /**
- * Configuración para InfinityFree
+ * Configuración para PostgreSQL en Render
  */
 
-// Datos de InfinityFree
-define('SERVIDOR','sql200.infinityfree.com');
-define('USUARIO','if0_38689096');
-define('PASSWORD','OwvvFsk0dpJpp');
-define('BD','if0_38689096_sisgestion_escolar'); // Cambia XXX por el nombre exacto de tu base de datos
+define('SERVIDOR','dpg-cvqv76euk2gs73c2ugig-a.oregon-postgres.render.com');
+define('USUARIO','sisgestion_escolar_user');
+define('PASSWORD','XEoM2JZ6mzJVhRcwGTUFp4k4L1ymzmwl');
+define('BD','sisgestion_escolar');
+define('PUERTO','5432');
 
 define('APP_NAME','SISTEMA DE GESTIÓN ESCOLAR');
-define('APP_URL','https://if0_38689096.epizy.com'); // Cambia si tienes un dominio personalizado
+define('APP_URL','https://TU_DOMINIO.render.com'); // reemplaza si tienes un dominio personalizado
 define('KEY_API_MAPS','');
 
-$servidor = "mysql:dbname=".BD.";host=".SERVIDOR;
+// Conexión PostgreSQL
+$dsn = "pgsql:host=" . SERVIDOR . ";port=" . PUERTO . ";dbname=" . BD . ";";
 
 try {
-    $pdo = new PDO($servidor, USUARIO, PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-    // echo "Conexión exitosa a la base de datos";
+    $pdo = new PDO($dsn, USUARIO, PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+    // echo "Conexión exitosa";
 } catch (PDOException $e) {
-    print_r($e);
-    echo "Error: no se pudo conectar a la base de datos";
+    echo "Error de conexión: " . $e->getMessage();
 }
 
 date_default_timezone_set("America/Caracas");
