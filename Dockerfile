@@ -1,14 +1,19 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
-# Habilitar mod_rewrite
+# Instalar extensiones necesarias (opcional)
+RUN docker-php-ext-install mysqli
+
+# Copiar todo el contenido al contenedor
+COPY sisgestionescolar/ /var/www/html/
+
+# Activar mod_rewrite
 RUN a2enmod rewrite
 
-# Copiar archivos del directorio público al directorio web de Apache
-COPY sisgestionescolar/public/ /var/www/html/
+# Configurar el directorio raíz
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
-# Establecer permisos adecuados
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Ajustar apache config
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf
 
-# Configuración de Apache
-COPY sisgestionescolar/public/.htaccess /var/www/html/.htaccess
+# Dar permisos (opcional)
+RUN chown -R www-data:www-data /var/www/html
