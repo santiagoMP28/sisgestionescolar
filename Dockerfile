@@ -1,13 +1,14 @@
 FROM php:8.1-apache
 
-# Copia todos los archivos del proyecto
-COPY . /var/www/html/
-
-# Instala las extensiones necesarias para MySQL
-RUN docker-php-ext-install mysqli pdo pdo_mysql
-
-# Habilita mod_rewrite si usas URLs amigables
+# Habilitar mod_rewrite
 RUN a2enmod rewrite
 
-# Configura el working directory
-WORKDIR /var/www/html
+# Copiar archivos del directorio público al directorio web de Apache
+COPY sisgestionescolar/public/ /var/www/html/
+
+# Establecer permisos adecuados
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
+
+# Configuración de Apache
+COPY sisgestionescolar/public/.htaccess /var/www/html/.htaccess
