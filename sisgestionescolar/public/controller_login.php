@@ -18,25 +18,25 @@ if ($usuario && password_verify($password, $usuario['password'])) {
     $_SESSION['mensaje'] = "Bienvenido al sistema";
     $_SESSION['icono'] = "success";
     $_SESSION['sesion_email'] = $email;
+    $_SESSION['sesion_rol'] = $usuario['rol_id']; // corregido
 
-    // Verificamos si existe la clave 'rol' antes de usarla
-    if (isset($usuario['rol'])) {
-        $_SESSION['sesion_rol'] = $usuario['rol'];
-
-        // Redirección dependiendo del rol
-        if ($usuario['rol'] === 'admin') {
+    // Redirección dependiendo del rol_id
+    switch ($usuario['rol_id']) {
+        case 1: // ADMINISTRADOR
             header('Location:' . APP_URL . '/admin/index.php');
-        } elseif ($usuario['rol'] === 'usuario') {
-            header('Location:' . APP_URL . '/usuarios/index.php');
-        } else {
-            // Por si el rol no es reconocido
+            break;
+        case 6: // DOCENTE
+            header('Location:' . APP_URL . '/docentes/index.php');
+            break;
+        case 7: // ESTUDIANTE
+            header('Location:' . APP_URL . '/estudiantes/index.php');
+            break;
+        default:
+            // Rol no reconocido
+            $_SESSION['mensaje'] = "No se ha definido una ruta para este rol";
+            $_SESSION['icono'] = "error";
             header('Location:' . APP_URL);
-        }
-    } else {
-        // Si no existe el rol, lo redirigimos de forma segura
-        $_SESSION['mensaje'] = "No se ha definido un rol para este usuario";
-        $_SESSION['icono'] = "error";
-        header('Location:' . APP_URL);
+            break;
     }
 
     exit;
