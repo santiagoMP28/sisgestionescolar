@@ -64,21 +64,26 @@ if (session_status() == PHP_SESSION_NONE) {
             </form>
 
             <?php
+            
             if(isset($_SESSION['mensaje'])){
                 $mensaje = $_SESSION['mensaje'];
+                $icono = $_SESSION['icono'] ?? 'error'; // Usamos también el icono que ya configuraste
                 ?>
                 <script>
                     Swal.fire({
                         position: "top-end",
-                        icon: "error",
+                        icon: "<?=$icono;?>",
                         title: "<?=$mensaje;?>",
                         showConfirmButton: false,
                         timer: 4000
                     });
                 </script>
             <?php
-                session_destroy();
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['icono']);
             }
+            
+            
             ?>
 
         </div>
