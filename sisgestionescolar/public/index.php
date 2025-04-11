@@ -29,8 +29,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <div class="login-box">
     <center>
         <br>
-        <img src="https://img.freepik.com/vector-gratis/concepto-abstracto-sistema-control-acceso_335657-3180.jpg?w=740&t=st=1703808543~exp=1703809143~hmac=6740d576ffcb74ef090f90d076b9e9e2b4f5641df33d2164c8577b0e5829c127"
-             width="150px" alt="Imagen de acceso">
+        <img src="<?= APP_URL; ?>/public/img/login.png" width="150px" alt="Imagen de acceso">
         <br><br>
     </center>
     <div class="login-logo">
@@ -42,9 +41,10 @@ if (session_status() == PHP_SESSION_NONE) {
             <p class="login-box-msg">Inicio de sesión</p>
             <hr>
 
-            <form action="../controller_login.php" method="POST">
+            <!-- Ruta corregida a absoluta -->
+            <form action="<?= APP_URL; ?>/controller_login.php" method="POST">
                 <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="off">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -53,7 +53,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

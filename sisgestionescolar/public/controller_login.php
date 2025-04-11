@@ -3,46 +3,68 @@ session_start();
 
 include (__DIR__ . '/../app/config.php');
 
-$email = $_POST['email'] ?? '';
+// Verificar que se haya enviado el formulario por POST
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $_SESSION['mensaje'] = "Acceso no permitido";
+    $_SESSION['icono'] = "error";
+    header('Location: ' . APP_URL);
+    exit;
+}
+
+// Recibir y limpiar datos
+$email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
 $password = $_POST['password'] ?? '';
 
-// Preparar la consulta segura
-$sql = "SELECT * FROM usuarios WHERE email = :email AND estado = '1'";
-$query = $pdo->prepare($sql);
-$query->bindParam(':email', $email, PDO::PARAM_STR);
-$query->execute();
+// Validar datos mínimos
+if (empty($email) || empty($password)) {
+    $_SESSION['mensaje'] = "Por favor, completa todos los campos";
+    $_SESSION['icono'] = "warning";
+    header('Location: ' . APP_URL);
+    exit;
+}
 
-$usuario = $query->fetch(PDO::FETCH_ASSOC);
+try {
+    // Preparar la consulta segura
+    $sql = "SELECT * FROM usuarios WHERE email = :email AND estado = '1'";
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->execute();
 
-if ($usuario && password_verify($password, $usuario['password'])) {
-    $_SESSION['mensaje'] = "Bienvenido al sistema";
-    $_SESSION['icono'] = "success";
-    $_SESSION['sesion_email'] = $email;
-    $_SESSION['sesion_rol'] = $usuario['rol_id']; // corregido
+    $usuario = $query->fetch(PDO::FETCH_ASSOC);
 
-    // Redirección dependiendo del rol_id
-    switch ($usuario['rol_id']) {
-        case 1: // ADMINISTRADOR
-            header('Location:' . APP_URL . '/admin/index.php');
-            break;
-        case 6: // DOCENTE
-            header('Location:' . APP_URL . '/docentes/index.php');
-            break;
-        case 7: // ESTUDIANTE
-            header('Location:' . APP_URL . '/estudiantes/index.php');
-            break;
-        default:
-            // Rol no reconocido
+    if ($usuario && password_verify($password, $usuario['password'])) {
+        $_SESSION['mensaje'] = "Bienvenido al sistema";
+        $_SESSION['icono'] = "success";
+        $_SESSION['sesion_email'] = $email;
+        $_SESSION['sesion_rol'] = $usuario['rol_id'];
+
+        // Definir rutas por rol
+        $rutasPorRol = [
+            1 => APP_URL . '/admin/index.php',        // ADMINISTRADOR
+            6 => APP_URL . '/docentes/index.php',     // DOCENTE
+            7 => APP_URL . '/estudiantes/index.php',  // ESTUDIANTE
+        ];
+
+        // Redirección según el rol
+        $ruta = $rutasPorRol[$usuario['rol_id']] ?? APP_URL;
+
+        if (!isset($rutasPorRol[$usuario['rol_id']])) {
             $_SESSION['mensaje'] = "No se ha definido una ruta para este rol";
             $_SESSION['icono'] = "error";
-            header('Location:' . APP_URL);
-            break;
-    }
+        }
 
-    exit;
-} else {
-    $_SESSION['mensaje'] = "Los datos introducidos son incorrectos, vuelva a intentarlo";
+        header('Location: ' . $ruta);
+        exit;
+    } else {
+        $_SESSION['mensaje'] = "Los datos introducidos son incorrectos, vuelva a intentarlo";
+        $_SESSION['icono'] = "error";
+        header('Location: ' . APP_URL);
+        exit;
+    }
+} catch (PDOException $e) {
+    // Manejo de errores de la base de datos
+    $_SESSION['mensaje'] = "Error del servidor: " . $e->getMessage();
     $_SESSION['icono'] = "error";
-    header('Location:' . APP_URL);
+    header('Location: ' . APP_URL);
     exit;
 }
