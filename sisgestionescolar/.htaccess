@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# Redirige admin
+RewriteRule ^admin/(.*)$ admin/$1 [L]
+
+# Redirige docentes
+RewriteRule ^docentes/(.*)$ docentes/$1 [L]
+
+# Redirige estudiantes
+RewriteRule ^estudiantes/(.*)$ estudiantes/$1 [L]
+
+# Regla general para enviar todas las solicitudes al index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
