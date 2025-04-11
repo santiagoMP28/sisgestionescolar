@@ -18,11 +18,11 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= APP_URL; ?>/public/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= APP_URL; ?>/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="<?= APP_URL; ?>/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= APP_URL; ?>/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= APP_URL; ?>/public/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= APP_URL; ?>/dist/css/adminlte.min.css">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -84,10 +84,10 @@ if (session_status() === PHP_SESSION_NONE) {
 </div>
 
 <!-- jQuery -->
-<script src="<?= APP_URL; ?>/public/plugins/jquery/jquery.min.js"></script>
+<script src="<?= APP_URL; ?>/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="<?= APP_URL; ?>/public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= APP_URL; ?>/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="<?= APP_URL; ?>/public/dist/js/adminlte.min.js"></script>
+<script src="<?= APP_URL; ?>/dist/js/adminlte.min.js"></script>
 </body>
 </html>
