@@ -3,7 +3,7 @@
  * Configuración para PostgreSQL en Render
  */
 
-// Solo inicia la sesión si no está activa
+// Inicia la sesión si no está activa
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -18,16 +18,20 @@ define('APP_NAME', 'SISTEMA DE GESTIÓN ESCOLAR');
 const APP_URL = 'https://sisgestionescolar-1.onrender.com';
 define('KEY_API_MAPS', '');
 
-// Conexión PostgreSQL
+// Conexión a PostgreSQL
 $dsn = "pgsql:host=" . SERVIDOR . ";port=" . PUERTO . ";dbname=" . BD . ";";
 
 try {
-    $pdo = new PDO($dsn, USUARIO, PASSWORD, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-    // echo "Conexión exitosa";
+    $pdo = new PDO($dsn, USUARIO, PASSWORD, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+    // Conexión exitosa
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
+    exit;
 }
 
+// Configuración regional
 date_default_timezone_set("America/Caracas");
 
 $fechaHora = date('Y-m-d H:i:s');
