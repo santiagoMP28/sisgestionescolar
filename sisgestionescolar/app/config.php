@@ -17,7 +17,7 @@ define('PUERTO', '5432');
 
 // Configuración de la aplicación
 define('APP_NAME', 'SISTEMA DE GESTIÓN ESCOLAR');
-const APP_URL = 'https://sisgestionescolar-1.onrender.com';
+define('APP_URL', 'https://sisgestionescolar-1.onrender.com');
 define('KEY_API_MAPS', ''); // Llave de Google Maps (opcional)
 
 // Configuración regional
@@ -39,15 +39,18 @@ $dsn = "pgsql:host=" . SERVIDOR . ";port=" . PUERTO . ";dbname=" . BD;
 try {
     $pdo = new PDO($dsn, USUARIO, PASSWORD, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, // Opcional: que siempre devuelva arreglos asociativos
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
 } catch (PDOException $e) {
     // Evita mostrar errores en producción
     error_log('Error de conexión a la base de datos: ' . $e->getMessage());
+
+    // Redirige a la página de error si las cabeceras no han sido enviadas
     if (!headers_sent()) {
         header('Location: ' . APP_URL . '/error.php');
+        exit;
     } else {
         echo "Error de conexión. Por favor, inténtelo más tarde.";
+        exit;
     }
-    exit;
 }

@@ -1,7 +1,11 @@
 <?php
 session_start();
 
-include (__DIR__ . '/../app/config.php');
+// Definimos una constante base para rutas absolutas
+define('BASE_PATH', dirname(__DIR__));
+
+// Incluimos el config con ruta absoluta
+require_once BASE_PATH . '/app/config.php';
 
 // Verificar que se haya enviado el formulario por POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
