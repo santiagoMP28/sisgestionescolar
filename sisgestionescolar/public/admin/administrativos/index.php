@@ -1,6 +1,6 @@
 <?php
 include ('../../app/config.php');
-include ('../../admin/layout/parte1.php');
+include ('../../public/admin/layout/parte1.php');
 
 include ('../../app/controllers/administrativos/listado_de_administrativos.php');
 

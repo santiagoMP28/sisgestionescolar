@@ -3,7 +3,7 @@
 $id_administrativo = $_GET['id'];
 
 include ('../../app/config.php');
-include ('../../admin/layout/parte1.php');
+include ('../public/admin/layout/parte1.php');
 include ('../../app/controllers/administrativos/datos_administrativos.php');
 
 ?>

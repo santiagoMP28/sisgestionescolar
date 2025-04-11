@@ -4,15 +4,25 @@ session_start();
 // Definir base path para rutas absolutas
 define('BASE_PATH', dirname(__DIR__));
 
+// Definir URL base dinámica para que siempre funcione
+$host = $_SERVER['HTTP_HOST'];
+$publicPath = '/public'; // <- si lo movés, cambiás solo acá
+define('APP_URL', 'https://' . $host . $publicPath);
+
 // Incluir la configuración
 require_once BASE_PATH . '/app/config.php';
 
+// Función reutilizable para redireccionar y salir
+function exitRedirect($mensaje, $icono, $url = APP_URL) {
+    $_SESSION['mensaje'] = $mensaje;
+    $_SESSION['icono'] = $icono;
+    header('Location: ' . $url);
+    exit;
+}
+
 // Verificar método de solicitud
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    $_SESSION['mensaje'] = "Acceso no permitido";
-    $_SESSION['icono'] = "error";
-    header('Location: ' . APP_URL);
-    exit;
+    exitRedirect("Acceso no permitido", "error");
 }
 
 // Recibir y limpiar datos del formulario
@@ -21,10 +31,7 @@ $password = $_POST['password'] ?? '';
 
 // Validar campos obligatorios
 if (empty($email) || empty($password)) {
-    $_SESSION['mensaje'] = "Por favor, completa todos los campos";
-    $_SESSION['icono'] = "warning";
-    header('Location: ' . APP_URL);
-    exit;
+    exitRedirect("Por favor, completa todos los campos", "warning");
 }
 
 try {
@@ -56,22 +63,14 @@ try {
             header('Location: ' . $rutasPorRol[$usuario['rol_id']]);
             exit;
         } else {
-            $_SESSION['mensaje'] = "No se ha definido una ruta para este rol";
-            $_SESSION['icono'] = "error";
-            header('Location: ' . APP_URL);
-            exit;
+            exitRedirect("No se ha definido una ruta para este rol", "error");
         }
     } else {
         // Credenciales incorrectas
-        $_SESSION['mensaje'] = "Los datos introducidos son incorrectos, vuelva a intentarlo";
-        $_SESSION['icono'] = "error";
-        header('Location: ' . APP_URL);
-        exit;
+        exitRedirect("Los datos introducidos son incorrectos, vuelva a intentarlo", "error");
     }
 } catch (PDOException $e) {
     // Error de base de datos
-    $_SESSION['mensaje'] = "Error del servidor: " . $e->getMessage();
-    $_SESSION['icono'] = "error";
-    header('Location: ' . APP_URL);
-    exit;
+    // Opcional: Para producción, mejor no exponer detalles de error.
+    exitRedirect("Error del servidor. Inténtalo más tarde.", "error");
 }
