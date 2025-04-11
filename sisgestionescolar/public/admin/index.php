@@ -1,14 +1,15 @@
 <?php
-include ('../app/config.php');
-include ('../admin/layout/parte1.php');
-include ('../app/controllers/roles/listado_de_roles.php');
-include ('../app/controllers/usuarios/listado_de_usuarios.php');
-include ('../app/controllers/niveles/listado_de_niveles.php');
-include ('../app/controllers/grados/listado_de_grados.php');
-include ('../app/controllers/materias/listado_de_materias.php');
-include ('../app/controllers/administrativos/listado_de_administrativos.php');
-include ('../app/controllers/docentes/listado_de_docentes.php');
+include (__DIR__ . '/../../app/config.php');
+include (__DIR__ . '/../layout/parte1.php');
+include (__DIR__ . '/../../app/controllers/roles/listado_de_roles.php');
+include (__DIR__ . '/../../app/controllers/usuarios/listado_de_usuarios.php');
+include (__DIR__ . '/../../app/controllers/niveles/listado_de_niveles.php');
+include (__DIR__ . '/../../app/controllers/grados/listado_de_grados.php');
+include (__DIR__ . '/../../app/controllers/materias/listado_de_materias.php');
+include (__DIR__ . '/../../app/controllers/administrativos/listado_de_administrativos.php');
+include (__DIR__ . '/../../app/controllers/docentes/listado_de_docentes.php');
 ?>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -210,8 +211,7 @@ include ('../app/controllers/docentes/listado_de_docentes.php');
 <!-- /.content-wrapper -->
 
 <?php
-
-include ('../admin/layout/parte2.php');
-include ('../layout/mensajes.php');
-
+include (__DIR__ . '/../layout/parte2.php');
+include (__DIR__ . '/../layout/mensajes.php');
 ?>
+
