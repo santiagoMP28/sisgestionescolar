@@ -39,7 +39,7 @@ if (session_status() == PHP_SESSION_NONE) {
         <div class="card-body login-card-body">
             <p class="login-box-msg">Inicio de sesión</p>
             <hr>
-            <form action="<?=APP_URL;?>/public/controller_login.php" method="post">
+            <form action="../controller_login.php" method="POST">
 
                 <div class="input-group mb-3">
                     <input type="email" name="email" class="form-control" placeholder="Email">

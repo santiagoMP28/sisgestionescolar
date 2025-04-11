@@ -15,7 +15,7 @@ define('BD', 'sisgestion_escolar');
 define('PUERTO', '5432');
 
 define('APP_NAME', 'SISTEMA DE GESTIÓN ESCOLAR');
-define('APP_URL', 'https://sisgestionescolar-1.onrender.com');
+const APP_URL = 'https://sisgestionescolar-1.onrender.com';
 define('KEY_API_MAPS', '');
 
 // Conexión PostgreSQL
