@@ -1,4 +1,3 @@
-
 CREATE TABLE roles (
 
   id_rol        INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -8,7 +7,7 @@ CREATE TABLE roles (
   fyh_actualizacion DATETIME NULL,
   estado        VARCHAR (11)
 
-)ENGINE=InnoDB;
+)ENGINE=InnoDB; 
 INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('ADMINISTRADOR','2024-01-03 16:20:20','1');
 INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('DIRECTOR ACADÉMICO','2024-01-03 16:20:20','1');
 INSERT INTO roles (nombre_rol,fyh_creacion,estado) VALUES  ('DIRECTOR ADMINISTRATIVO','2024-01-03 16:20:20','1');
