@@ -1,9 +1,7 @@
 services:
   - type: web
-    name: sisgestion-escolar
-    env: docker
-    plan: free
-    dockerfilePath: ./Dockerfile
-    envVars:
-      - key: PORT
-        value: 80
+    name: sisgestionescolar
+    env: php
+    rootDir: public
+    buildCommand: ""
+    startCommand: ""
